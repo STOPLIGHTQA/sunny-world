@@ -1,0 +1,130 @@
+extends:
+  - spectral:oas
+
+rules:
+  # ---------- Info Section ----------
+  info-description:
+    description: "API must have contact information"
+    given: $.info
+    severity: warn
+    then:
+      field: contact
+      function: truthy
+
+  info-bajaj:
+    description: "API info.description should be present"
+    given: $.info
+    severity: warn
+    then:
+      field: description
+      function: truthy
+
+  # ---------- Paths ----------
+  path-kebab-case:
+    description: "Paths should be kebab-case"
+    given: $.paths[*]~
+    severity: error
+    then:
+      function: pattern
+      functionOptions:
+        match: "^/[a-z0-9\\-/{}]+$"
+
+  no-trailing-slash:
+    description: "Paths must not end with a trailing slash"
+    given: $.paths[*]~
+    severity: error
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: ".*/$"
+
+  # ---------- Operations ----------
+  operation-summary:
+    description: "Each operation should have a summary"
+    given: $.paths[*][*]
+    severity: warn
+    then:
+      field: summary
+      function: truthy
+
+  operation-description:
+    description: "Each operation should have a description"
+    given: $.paths[*][*]
+    severity: warn
+    then:
+      field: description
+      function: truthy
+
+  # ---------- Parameters ----------
+  parameter-description:
+    description: "All parameters must have a description"
+    given: $.paths[*][*].parameters[*]
+    severity: error
+    then:
+      field: description
+      function: truthy
+
+  parameter-camelCase:
+    description: "Query and path parameters should be camelCase"
+    given: $.paths[*][*].parameters[*].name
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]*$"
+
+  # ---------- Request Bodies ----------
+  request-body-description:
+    description: "Request body should have a description"
+    given: $.paths[*][*].requestBody
+    severity: warn
+    then:
+      field: description
+      function: truthy
+
+  # ---------- Responses ----------
+  response-description:
+    description: "All responses must have a description"
+    given: $.paths[*][*].responses[*]
+    severity: error
+    then:
+      field: description
+      function: truthy
+
+  success-response-200:
+    description: "GET operations should define a 200 response"
+    given: $.paths[*].get.responses
+    severity: warn
+    then:
+      function: defined
+      functionOptions:
+        field: "200"
+
+  # ---------- Schemas ----------
+  schema-description:
+    description: "Schemas should have descriptions"
+    given: $.components.schemas[*]
+    severity: warn
+    then:
+      field: description
+      function: truthy
+
+  property-description:
+    description: "Schema properties should have descriptions"
+    given: $.components.schemas[*].properties[*]
+    severity: warn
+    then:
+      field: description
+      function: truthy
+
+  # ---------- Naming ----------
+  schema-pascal-case:
+    description: "Schema names should be PascalCase"
+    given: $.components.schemas[*]~
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[A-Z][a-zA-Z0-9]*$"
+
+ 
