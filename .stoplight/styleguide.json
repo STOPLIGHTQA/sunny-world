@@ -1,0 +1,208 @@
+{
+  "name": "sunny-world",
+  "description": "",
+  "spectralExtends": [],
+  "extends": [],
+  "formats": [
+    "oas2",
+    "oas3",
+    "oas3.0",
+    "oas3.1"
+  ],
+  "aliases": {},
+  "rules": {
+    "info-description": {
+      "id": "wp5Kr1LqhQLhokSP1bbkX",
+      "given": [
+        "$.info"
+      ],
+      "severity": "warn",
+      "then": {
+        "function": "truthy",
+        "field": "contact"
+      },
+      "name": "info-description",
+      "description": "API must have contact information"
+    },
+    "info-bajaj": {
+      "id": "EMWsgg2sM1QVyGOMD2C6i",
+      "given": [
+        "$.info"
+      ],
+      "severity": "warn",
+      "then": {
+        "function": "truthy",
+        "field": "description"
+      },
+      "name": "info-bajaj",
+      "description": "API info.description should be present"
+    },
+    "path-kebab-case": {
+      "id": "aqaXnpKaYBjU42DgMuvp9",
+      "given": [
+        "$.paths[*]~"
+      ],
+      "severity": "error",
+      "then": {
+        "function": "pattern",
+        "functionOptions": {
+          "match": "^/[a-z0-9\\-/{}]+$"
+        }
+      },
+      "name": "path-kebab-case",
+      "description": "Paths should be kebab-case"
+    },
+    "no-trailing-slash": {
+      "id": "2JTXmjjkv7cQEs4o1RxjY",
+      "given": [
+        "$.paths[*]~"
+      ],
+      "severity": "error",
+      "then": {
+        "function": "pattern",
+        "functionOptions": {
+          "notMatch": ".*/$"
+        }
+      },
+      "name": "no-trailing-slash",
+      "description": "Paths must not end with a trailing slash"
+    },
+    "operation-summary": {
+      "id": "dmpO8FJ1SzD9G3pjDkFl7",
+      "given": [
+        "$.paths[*][*]"
+      ],
+      "severity": "warn",
+      "then": {
+        "function": "truthy",
+        "field": "summary"
+      },
+      "name": "operation-summary",
+      "description": "Each operation should have a summary"
+    },
+    "operation-description": {
+      "id": "e-tFLo8FUdlLUAHWfHeuZ",
+      "given": [
+        "$.paths[*][*]"
+      ],
+      "severity": "warn",
+      "then": {
+        "function": "truthy",
+        "field": "description"
+      },
+      "name": "operation-description",
+      "description": "Each operation should have a description"
+    },
+    "parameter-description": {
+      "id": "BtwuMduHePYqYzQIFYeQ-",
+      "given": [
+        "$.paths[*][*].parameters[*]"
+      ],
+      "severity": "error",
+      "then": {
+        "function": "truthy",
+        "field": "description"
+      },
+      "name": "parameter-description",
+      "description": "All parameters must have a description"
+    },
+    "parameter-camelCase": {
+      "id": "xqbuiM7Gd05JxkNiSHuTk",
+      "given": [
+        "$.paths[*][*].parameters[*].name"
+      ],
+      "severity": "warn",
+      "then": {
+        "function": "pattern",
+        "functionOptions": {
+          "match": "^[a-z][a-zA-Z0-9]*$"
+        }
+      },
+      "name": "parameter-camelCase",
+      "description": "Query and path parameters should be camelCase"
+    },
+    "request-body-description": {
+      "id": "dnVTekknxiclX04lnUqtb",
+      "given": [
+        "$.paths[*][*].requestBody"
+      ],
+      "severity": "warn",
+      "then": {
+        "function": "truthy",
+        "field": "description"
+      },
+      "name": "request-body-description",
+      "description": "Request body should have a description"
+    },
+    "response-description": {
+      "id": "tNDq91a9cNyDOloPJB29e",
+      "given": [
+        "$.paths[*][*].responses[*]"
+      ],
+      "severity": "error",
+      "then": {
+        "function": "truthy",
+        "field": "description"
+      },
+      "name": "response-description",
+      "description": "All responses must have a description"
+    },
+    "success-response-200": {
+      "id": "F8AL_4uSnxVj6GiMrz7L8",
+      "given": [
+        "$.paths[*].get.responses"
+      ],
+      "severity": "warn",
+      "then": {
+        "function": "defined",
+        "functionOptions": {
+          "field": "200"
+        }
+      },
+      "name": "success-response-200",
+      "description": "GET operations should define a 200 response"
+    },
+    "schema-description": {
+      "id": "SiePU0KEYiRQIpf4rC4FN",
+      "given": [
+        "$.components.schemas[*]"
+      ],
+      "severity": "warn",
+      "then": {
+        "function": "truthy",
+        "field": "description"
+      },
+      "name": "schema-description",
+      "description": "Schemas should have descriptions"
+    },
+    "property-description": {
+      "id": "U2ehpHexGEy-nP8mjDoHN",
+      "given": [
+        "$.components.schemas[*].properties[*]"
+      ],
+      "severity": "warn",
+      "then": {
+        "function": "truthy",
+        "field": "description"
+      },
+      "name": "property-description",
+      "description": "Schema properties should have descriptions"
+    },
+    "schema-pascal-case": {
+      "id": "6MLm_oC0jdQmzg7B8KIBV",
+      "given": [
+        "$.components.schemas[*]~"
+      ],
+      "severity": "warn",
+      "then": {
+        "function": "pattern",
+        "functionOptions": {
+          "match": "^[A-Z][a-zA-Z0-9]*$"
+        }
+      },
+      "name": "schema-pascal-case",
+      "description": "Schema names should be PascalCase"
+    }
+  },
+  "extendedDefault": false
+}
